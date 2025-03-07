@@ -1,6 +1,7 @@
 import { createClient, createKeyv } from "@keyv/redis"
 import { Cacheable } from "cacheable"
 import { test } from "node:test"
+import { setTimeout } from "node:timers/promises"
 
 test("should bypass the secondary store", async (t) => {
     const redis = createClient({
@@ -11,12 +12,13 @@ test("should bypass the secondary store", async (t) => {
     redis.on("error", () => {})
     redis.connect().catch(() => {})
 
-    while (!client.isOpen) {
-        console.log("not open yet")
-        await setTimeout(3_000)
+    if (!redis.isOpen) {
+        console.log("not opened yet")
+        await setTimeout(50)
     }
 
     const cacheable = new Cacheable({
+        nonBlocking: true,
         secondary: createKeyv(redis)
     })
 
