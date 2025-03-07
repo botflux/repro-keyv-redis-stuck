@@ -4,8 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test-stuck": "node --test ./keyv_stuck.js",
-    "test-fixed": "node --test ./keyv_fixed.js"
+    "test-repro": "node --test ./keyv_repro.js",
+    "test-workaround": "node --test ./keyv_workaround.js"
   },
   "keywords": [],
   "author": "",

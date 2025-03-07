@@ -3,7 +3,7 @@ import { Cacheable } from "cacheable"
 import { test } from "node:test"
 import { setTimeout } from "node:timers/promises"
 
-test("should bypass the secondary store", async (t) => {
+test("should not be blocked by get() when redis is unavailable even on the first connection", async (t) => {
     const redis = createClient({
         url: "redis://localhost:17888",
         disableOfflineQueue: true,
